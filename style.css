@@ -1,0 +1,40 @@
+body {
+  display: block;
+  text-align: center;
+  align-items: center;
+  background-color: grey;
+  color: black;
+  height: 100vh;
+  font-family: 'Averia Serif Libre', serif;;
+}
+#scores {
+
+}
+#score{
+
+}
+#grid {
+  border-radius: 100px;
+  display: grid;
+  grid-template-columns: repeat(40, 20px);
+  grid-template-rows: repeat(30, 20px);
+  justify-content: center;
+  margin: 5px;
+}
+#controls{
+
+}
+#ul-list{
+
+}
+#img-snake {
+  width: 800px;
+  height: 700px;
+  display: none;
+}
+#instruction{
+  text-align: center;
+}
+#restart{
+
+}
