@@ -3,29 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre&display=swap"
+      rel="stylesheet"
+    />
     <title>Anaconda</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
   </head>
   <body>
-    <h1 id="title">Title</h1>
-
-    <div id="scores">
-        <h2 id="score">Score: 0</h2>
+    <!-- <h1 id="title">Title</h1> -->
+    <div>
+      <div id="scores">
+        <h1 id="score">Score: 0</h1>
+        <h1 id="high-score"></h1>
+      </div>
+      <div class="border-game1">
+        <div class="border-game2">
+          <div class="border-game3">
+            <div id="grid"></div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div id="grid"></div>
     <img id="img-snake" src="img/terrifying monster snake.jpg" alt="snake" />
-    <h2 id="controls">Controls</h2>
-    <ul class="ul-list">
-        <li>Up: Arrowup</li>
-        <li>Right: Arrowright</li>
-        <li>Down: Arrowdown</li>
-        <li>Left: Arrowleft</li>
-    </ul>
-    <h2 id="instruction">Press any key to start</h2>
-    <h3 id="restart">You're dead! Press to restart.</h3>
-    <script src="script.js"></script>
+    <h1 id="instruction">Press any 'key' to start</h1>
+    <h1 id="restart">
+      You're dead! <br />
+      Press 'Enter' to restart.
+    </h1>
   </body>
 </html>
+
+<!-- <ul class="ul-list">
+      <li>Up: Arrowup</li>
+      <li>Right: Arrowright</li>
+      <li>Down: Arrowdown</li>
+      <li>Left: Arrowleft</li>
+    </ul> -->
+
+<!-- <h2 id="controls">Controls</h2> -->
