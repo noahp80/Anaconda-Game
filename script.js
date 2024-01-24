@@ -7,6 +7,10 @@ const instructions = document.getElementById("instruction");
 const logo = document.getElementById("img-snake");
 const restartLogo = document.getElementById("restart-img");
 const title = document.getElementById("title");
+const eatSound = document.getElementById("eatSound");
+const ouchSound = document.getElementById("ouchSound");
+const endSound = document.getElementById("endSound");
+const introSound = document.getElementById("introSound");
 
 let snake = [{ x: 20, y: 10 }];
 let food = generateFood();
@@ -16,7 +20,6 @@ let gameInterval;
 let gameSpeedDelay = 200;
 let gameStarted = false;
 
-title.style.display = "block";
 restartLogo.style.display = "none";
 
 function draw() {
@@ -71,6 +74,7 @@ function move() {
   }
   snake.unshift(head);
   if (head.x === food.x && head.y === food.y) {
+    eatSound.play();
     food = generateFood();
     increaseSpeed;
     clearInterval(gameInterval);
@@ -84,11 +88,14 @@ function move() {
   }
 }
 function startGame() {
+  introSound.play();
+  endSound.pause();
   gameStarted = true;
   instructions.style.display = "none";
   logo.style.display = "none";
   restartLogo.style.display = "none";
   restart.style.display = "none";
+  title.style.display = "block";
   gameInterval = setInterval(() => {
     move();
     checkCillision();
@@ -133,7 +140,7 @@ function increaseSpeed() {
 }
 function checkCillision() {
   const head = snake[0];
-  if (head.x < 1 || head.x > 40 || head.y < 1 || head.y > 20) {
+  if (head.x < 1 || head.x > 40 || head.y < 1 || head.y > 20) { 
     resetGame();
   }
   for (let i = 1; i < snake.length; i++) {
@@ -143,6 +150,9 @@ function checkCillision() {
   }
 }
 function resetGame() {
+  introSound.pause();
+  ouchSound.play();
+  endSound.play();
   updateHighScore();
   stopGame();
   snake = [{ x: 15, y: 15 }];
@@ -154,6 +164,8 @@ function resetGame() {
   restart.style.display = "block";
   logo.style.display = "none";
   restartLogo.style.display = "block";
+  title.style.display = "none";
+  
 }
 function updateScore() {
   const currentScore = snake.length - 1;
@@ -162,8 +174,10 @@ function updateScore() {
 function stopGame() {
   clearInterval(gameInterval);
   gameStarted = false;
+  title.style.display = "block";
   instructions.style.display = "block";
   logo.style.display = "block";
+ 
 }
 function updateHighScore() {
   const currentScore = snake.length - 1;
