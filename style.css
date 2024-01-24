@@ -17,7 +17,7 @@ body,
   top: 2%;
   left: 10px;
   text-align: left;
-  color: #67152a;
+  color: #831430;
   width: 300px;
   font-size: 50px;
   padding: 30px;
@@ -96,10 +96,10 @@ body,
   margin: 10px 0;
 }
 #score {
-  color: black;
+  color: #831430;
 }
 #high-score {
-  color: FDF0D1;
+  color: #FDF0D1;
 }
 .snake {
   border: #643843 1px dotted;
@@ -118,7 +118,7 @@ body,
 #restart {
   position: absolute;
   text-align: center;
-  color: maroon;
+  color: #831430;
   font-size: 80px;
   display: none;
 }

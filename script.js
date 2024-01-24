@@ -11,6 +11,7 @@ const eatSound = document.getElementById("eatSound");
 const ouchSound = document.getElementById("ouchSound");
 const endSound = document.getElementById("endSound");
 const introSound = document.getElementById("introSound");
+const gameSound = document.getElementById("gameSound");
 
 let snake = [{ x: 20, y: 10 }];
 let food = generateFood();
@@ -21,6 +22,7 @@ let gameSpeedDelay = 200;
 let gameStarted = false;
 
 restartLogo.style.display = "none";
+
 
 function draw() {
   grid.innerHTML = "";
@@ -87,8 +89,9 @@ function move() {
     snake.pop();
   }
 }
+
 function startGame() {
-  introSound.play();
+  gameSound.play();
   endSound.pause();
   gameStarted = true;
   instructions.style.display = "none";
@@ -102,6 +105,7 @@ function startGame() {
     draw();
   }, gameSpeedDelay);
 }
+
 function handleKeyPress(event) {
   if (
     (!gameStarted && event.code === "Space") ||
@@ -140,7 +144,7 @@ function increaseSpeed() {
 }
 function checkCillision() {
   const head = snake[0];
-  if (head.x < 1 || head.x > 40 || head.y < 1 || head.y > 20) { 
+  if (head.x < 1 || head.x > 40 || head.y < 1 || head.y > 20) {
     resetGame();
   }
   for (let i = 1; i < snake.length; i++) {
@@ -150,12 +154,12 @@ function checkCillision() {
   }
 }
 function resetGame() {
-  introSound.pause();
+  gameSound.pause();
   ouchSound.play();
   endSound.play();
   updateHighScore();
   stopGame();
-  snake = [{ x: 15, y: 15 }];
+  snake = [{ x: 20, y: 10 }];
   food = generateFood();
   direction = "right";
   gameSpeedDelay = 200;
@@ -165,7 +169,6 @@ function resetGame() {
   logo.style.display = "none";
   restartLogo.style.display = "block";
   title.style.display = "none";
-  
 }
 function updateScore() {
   const currentScore = snake.length - 1;
@@ -177,7 +180,7 @@ function stopGame() {
   title.style.display = "block";
   instructions.style.display = "block";
   logo.style.display = "block";
- 
+
 }
 function updateHighScore() {
   const currentScore = snake.length - 1;
