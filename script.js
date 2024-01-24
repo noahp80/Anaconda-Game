@@ -1,18 +1,23 @@
 const grid = document.getElementById("grid");
 
-const restart = document.getElementById("restart")
+const restart = document.getElementById("restart");
 const highScoreText = document.getElementById("high-score");
 const score = document.getElementById("score");
 const instructions = document.getElementById("instruction");
 const logo = document.getElementById("img-snake");
-const gridSize = 30;
-let snake = [{ x: 15, y: 15 }];
+const restartLogo = document.getElementById("restart-img");
+const title = document.getElementById("title");
+
+let snake = [{ x: 20, y: 10 }];
 let food = generateFood();
 let highscore = 0;
 let direction = "right";
 let gameInterval;
 let gameSpeedDelay = 200;
 let gameStarted = false;
+
+title.style.display = "block";
+restartLogo.style.display = "none";
 
 function draw() {
   grid.innerHTML = "";
@@ -43,8 +48,8 @@ function drawFood() {
   grid.appendChild(foodElement);
 }
 function generateFood() {
-  const x = Math.floor(Math.random() * gridSize) + 1;
-  const y = Math.floor(Math.random() * gridSize) + 1;
+  const x = Math.floor(Math.random() * 40) + 1;
+  const y = Math.floor(Math.random() * 20) + 1;
   return { x, y };
 }
 function move() {
@@ -65,8 +70,6 @@ function move() {
       break;
   }
   snake.unshift(head);
-
-  // snake.pop();
   if (head.x === food.x && head.y === food.y) {
     food = generateFood();
     increaseSpeed;
@@ -84,6 +87,7 @@ function startGame() {
   gameStarted = true;
   instructions.style.display = "none";
   logo.style.display = "none";
+  restartLogo.style.display = "none";
   restart.style.display = "none";
   gameInterval = setInterval(() => {
     move();
@@ -120,7 +124,7 @@ function increaseSpeed() {
   if (gameSpeedDelay > 150) {
     gameSpeedDelay = -5;
   } else if (gameSpeedDelay > 100) {
-    gameSpeedDelay = -3;
+    gameSpeedDelay = -4;
   } else if (gameSpeedDelay > 50) {
     gameSpeedDelay = -2;
   } else if (gameSpeedDelay > 25) {
@@ -129,7 +133,7 @@ function increaseSpeed() {
 }
 function checkCillision() {
   const head = snake[0];
-  if (head.x < 1 || head.x > gridSize || head.y < 1 || head.y > gridSize) {
+  if (head.x < 1 || head.x > 40 || head.y < 1 || head.y > 20) {
     resetGame();
   }
   for (let i = 1; i < snake.length; i++) {
@@ -148,6 +152,8 @@ function resetGame() {
   updateScore();
   instructions.style.display = "none";
   restart.style.display = "block";
+  logo.style.display = "none";
+  restartLogo.style.display = "block";
 }
 function updateScore() {
   const currentScore = snake.length - 1;
@@ -167,4 +173,3 @@ function updateHighScore() {
   }
   highScoreText.style.display = "block";
 }
-
