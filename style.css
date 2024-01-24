@@ -5,44 +5,53 @@ body {
   height: 100vh;
   margin: 0;
   font-family: "Averia Serif Libre", serif;
+  background-image: url(/img/jungle.jpg);
+  background-size: cover;
 }
 body,
 .snake {
-  background-color: #414141;
+  background-color: #643843;
+}
+#title {
+  font-family: "Averia Serif Libre", serif;
+  position: absolute;
+  top: 5%;
+  left: 20px;
+  text-align: left;
+  color: #643843;
+  width: 300px;
+  font-size: 50px;
+  padding: 30px;
+  margin: 0;
 }
 #grid {
   border-radius: 100px;
   display: grid;
-  grid-template-columns: repeat(30, 20px);
-  grid-template-rows: repeat(30, 20px);
+  grid-template-columns: repeat(40, 20px);
+  grid-template-rows: repeat(20, 20px);
   justify-content: center;
   margin: 5px;
 }
 .border-game1 {
-  border: #595f43 solid 10px;
-  border-radius: 30px;
-  box-shadow: inset 0 0 0 10px #595f43;
+  border: #fdf0d1 solid 8px;
+  border-radius: 20px;
+  box-shadow: inset 0 0 0 10px #fdf0d1;
 }
 .border-game2 {
-  border: #595f43 solid 8px;
-  border-radius: 26px;
-  box-shadow: inset 0 0 0 10px #595f43;
+  border: #85586f solid 5px;
+  border-radius: 20px;
+  box-shadow: inset 0 0 0 10px #85586f;
 }
 .border-game3 {
-  border: #595f43 solid 30px;
-  border-radius: 20px;
-  box-shadow: inset 0 0 0 5px #595f43;
-}
-.border-game1 {
-  border: #595f43 solid 10px;
-  border-radius: 30px;
-  box-shadow: inset 0 0 0 10px #595f43;
+  border: #ac7d88 solid 20px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 5px #ac7d88;
 }
 #instruction {
   position: absolute;
-  top: 85%;
+  top: 75%;
   text-align: center;
-  color: maroon;
+  color: #fdf0d1;
   width: 300px;
   text-transform: capitalize;
   padding: 30px;
@@ -61,29 +70,36 @@ body,
   font-weight: bolder;
   margin: 10px 0;
 }
+#score {
+  color: black;
+}
 #high-score {
-  color: #d8ddca;
+  color: FDF0D1;
 }
 .snake {
-  border: #5a5a5a 1px dotted;
+  border: #643843 1px dotted;
 }
 .food {
-  background-color: #dedede;
-  border: #999 5px solid;
+  background-color: #fdf0d1;
+  border: #fdf0d1 5px solid;
 }
 .border-game3,
 #img-snake {
   background-color: #c4cfa3;
 }
 #img-snake {
-  position: absolute;
-  width: 800px;
-  height: 800px;
+  position: fixed;
 }
 #restart {
   position: absolute;
-text-align: center;
+  text-align: center;
   color: maroon;
   font-size: 60px;
-display: none;
+  display: none;
+}
+
+#restart-img {
+  position: fixed;
+  width: 1600px;
+  height: 800px;
 }
