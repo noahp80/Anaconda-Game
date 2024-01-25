@@ -5,7 +5,7 @@ body {
   height: 100vh;
   margin: 0;
   font-family: "Averia Serif Libre", serif;
-  background-image: url(/img/jungle.jpg);
+  background-image: url(img/jungle.jpg);
   background-size: cover;
   font-family: "Times New Roman", Times, serif;
 }
