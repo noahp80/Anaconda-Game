@@ -7,6 +7,7 @@ body {
   font-family: "Averia Serif Libre", serif;
   background-image: url(/img/jungle.jpg);
   background-size: cover;
+  font-family: "Times New Roman", Times, serif;
 }
 body,
 .snake {
@@ -99,14 +100,15 @@ body,
   color: #831430;
 }
 #high-score {
-  color: #FDF0D1;
+  color: #fdf0d1;
 }
 .snake {
   border: #643843 1px dotted;
 }
 .food {
-  background-color: #fdf0d1;
-  border: #fdf0d1 5px solid;
+  background-color: #831430;
+  border: #85586f 5px solid;
+  border-radius: 20px;
 }
 .border-game3,
 #img-snake {
@@ -126,4 +128,9 @@ body,
   position: fixed;
   width: 1600px;
   height: 800px;
+}
+#rottenFood{
+  background-color: black;
+  border: black 5px solid;
+  border-radius: 20px;
 }
