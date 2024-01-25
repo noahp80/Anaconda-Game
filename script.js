@@ -1,199 +1,196 @@
-const grid = document.getElementById("grid");
-
-const restart = document.getElementById("restart");
-const highScoreText = document.getElementById("high-score");
-const score = document.getElementById("score");
-const instructions = document.getElementById("instruction");
-const logo = document.getElementById("img-snake");
-const restartLogo = document.getElementById("restart-img");
-const title = document.getElementById("title");
-const eatSound = document.getElementById("eatSound");
-const ouchSound = document.getElementById("ouchSound");
-const endSound = document.getElementById("endSound");
-const introSound = document.getElementById("introSound");
-const gameSound = document.getElementById("gameSound");
-
-
-let snake = [{ x: 20, y: 10 }];
-let food = generateFood();
-let highscore = 0;
-let direction = "right";
-let gameInterval;
-let gameSpeedDelay = 200;
-let gameStarted = false;
-
-restartLogo.style.display = "none";
-
-function draw() {
-  grid.innerHTML = "";
-  drawSnake();
-  drawFood();
-  updateScore();
-}
-function drawSnake() {
-  snake.forEach((segment) => {
-    const snakeElement = createGameElement("div", "snake");
-    setPosition(snakeElement, segment);
-    grid.appendChild(snakeElement);
-  });
-}
-function createGameElement(tag, snakeClass) {
-  const element = document.createElement(tag);
-  element.className = snakeClass;
-  return element;
-}
-function setPosition(element, position) {
-  element.style.gridColumn = position.x;
-  element.style.gridRow = position.y;
-}
-function drawFood() {
-  foodElement = createGameElement("div", "food");
-  setPosition(foodElement, food);
-  grid.appendChild(foodElement);
-}
-
-function generateFood() {
-  const x = Math.floor(Math.random() * 40) + 1;
-  const y = Math.floor(Math.random() * 20) + 1;
-  return { x, y };
-}
-
-function move() {
-  const head = { ...snake[0] };
-
-  switch (direction) {
-    case "right":
-      head.x++;
-      break;
-    case "up":
-      head.y--;
-      break;
-    case "left":
-      head.x--;
-      break;
-    case "down":
-      head.y++;
-      break;
+class Anaconda {
+  constructor() {
+    this.grid = document.getElementById("grid");
+    this.restart = document.getElementById("restart");
+    this.highScoreText = document.getElementById("high-score");
+    this.score = document.getElementById("score");
+    this.instructions = document.getElementById("instruction");
+    this.logo = document.getElementById("img-snake");
+    this.restartLogo = document.getElementById("restart-img");
+    this.title = document.getElementById("title");
+    this.eatSound = document.getElementById("eatSound");
+    this.ouchSound = document.getElementById("ouchSound");
+    this.endSound = document.getElementById("endSound");
+    this.introSound = document.getElementById("introSound");
+    this.gameSound = document.getElementById("gameSound");
+    this.snake = [{ x: 20, y: 10 }];
+    this.food = this.generateFood();
+    this.highscore = 0;
+    this.direction = "right";
+    this.gameInterval;
+    this.gameSpeedDelay = 200;
+    this.gameStarted = false;
+    this.restartLogo.style.display = "none";
+    this.eventListeners();
   }
-  snake.unshift(head);
-  if (head.x === food.x && head.y === food.y) {
-    eatSound.play();
-    eatSound.volume = 0.4;
-    food = generateFood();
-    increaseSpeed;
-    clearInterval(gameInterval);
-    gameInterval = setInterval(() => {
-      move();
-      checkCillision();
-      draw();
-    }, gameSpeedDelay);
-  } else {
-    snake.pop();
+  draw() {
+    this.grid.innerHTML = "";
+    this.drawSnake();
+    this.drawFood();
+    this.updateScore();
   }
-}
-
-function startGame() {
-  introSound.pause();
-  gameSound.play();
-  gameSound.volume = 0.1;
-  endSound.pause();
-  gameStarted = true;
-  instructions.style.display = "none";
-  logo.style.display = "none";
-  restartLogo.style.display = "none";
-  restart.style.display = "none";
-  title.style.display = "block";
-  gameInterval = setInterval(() => {
-    move();
-    checkCillision();
-    draw();
-  }, gameSpeedDelay);
-}
-
-function handleKeyPress(event) {
-  if (
-    (!gameStarted && event.code === "Space") ||
-    (!gameStarted && event.key === " ")
-  ) {
-    startGame();
-  } else {
-    switch (event.key) {
-      case "ArrowUp":
-        direction = "up";
+  drawSnake() {
+    this.snake.forEach((segment) => {
+      const snakeElement = this.createGameElement("div", "snake");
+      this.setPosition(snakeElement, segment);
+      this.grid.appendChild(snakeElement);
+    });
+  }
+  createGameElement(tag, snakeClass) {
+    const element = document.createElement(tag);
+    element.className = snakeClass;
+    return element;
+  }
+  setPosition(element, position) {
+    element.style.gridColumn = position.x;
+    element.style.gridRow = position.y;
+  }
+  drawFood() {
+    const foodElement = this.createGameElement("div", "food");
+    this.setPosition(foodElement, this.food);
+    this.grid.appendChild(foodElement);
+  }
+  generateFood() {
+    const x = Math.floor(Math.random() * 40) + 1;
+    const y = Math.floor(Math.random() * 20) + 1;
+    return { x, y };
+  }
+  move() {
+    const head = { ...this.snake[0] };
+    switch (this.direction) {
+      case "right":
+        head.x++;
         break;
-      case "ArrowDown":
-        direction = "down";
+      case "up":
+        head.y--;
         break;
-      case "ArrowRight":
-        direction = "right";
+      case "left":
+        head.x--;
         break;
-      case "ArrowLeft":
-        direction = "left";
+      case "down":
+        head.y++;
         break;
     }
-  }
-}
-document.addEventListener("keydown", handleKeyPress);
-
-function increaseSpeed() {
-  if (gameSpeedDelay > 150) {
-    gameSpeedDelay = -5;
-  } else if (gameSpeedDelay > 100) {
-    gameSpeedDelay = -4;
-  } else if (gameSpeedDelay > 50) {
-    gameSpeedDelay = -2;
-  } else if (gameSpeedDelay > 25) {
-    gameSpeedDelay = -1;
-  }
-}
-function checkCillision() {
-  const head = snake[0];
-  if (head.x < 1 || head.x > 40 || head.y < 1 || head.y > 20) {
-    ouchSound.play();
-    ouchSound.volume = 0.4;
-    resetGame();
-  }
-  for (let i = 1; i < snake.length; i++) {
-    if (head.x === snake[i].x && head.y === snake[i].y) {
-      ouchSound.play();
-      resetGame();
+    this.snake.unshift(head);
+    if (head.x === this.food.x && head.y === this.food.y) {
+      this.eatSound.play();
+      this.eatSound.volume = 0.4;
+      this.food = this.generateFood();
+      this.increaseSpeed();
+      clearInterval(this.gameInterval);
+      this.gameInterval = setInterval(() => {
+        this.move();
+        this.checkCillision();
+        this.draw();
+      }, this.gameSpeedDelay);
+    } else {
+      this.snake.pop();
     }
   }
-}
-function resetGame() {
-  introSound.pause();
-  gameSound.pause();
-  endSound.play();
-  endSound.volume = 0.5;
-  updateHighScore();
-  stopGame();
-  snake = [{ x: 20, y: 10 }];
-  food = generateFood();
-  direction = "right";
-  gameSpeedDelay = 200;
-  updateScore();
-  instructions.style.display = "none";
-  restart.style.display = "block";
-  logo.style.display = "none";
-  restartLogo.style.display = "block";
-  title.style.display = "none";
-}
-function updateScore() {
-  const currentScore = snake.length - 1;
-  score.textContent = currentScore.toString().padStart(1, "0");
-}
-function stopGame() {
-  clearInterval(gameInterval);
-  gameStarted = false;
-  title.style.display = "block";
-  instructions.style.display = "block";
-  logo.style.display = "block";
-}
-function updateHighScore() {
-  const currentScore = snake.length - 1;
-  if (currentScore > highscore) {
-    highscore = currentScore;
-    highScoreText.textContent = highscore.toString().padStart(1, "0");
+  startGame() {
+    this.introSound.pause();
+    this.gameSound.play();
+    this.gameSound.volume = 0.1;
+    this.endSound.pause();
+    this.gameStarted = true;
+    this.instructions.style.display = "none";
+    this.logo.style.display = "none";
+    this.restartLogo.style.display = "none";
+    this.restart.style.display = "none";
+    this.title.style.display = "block";
+    this.gameInterval = setInterval(() => {
+      this.move();
+      this.checkCillision();
+      this.draw();
+    }, this.gameSpeedDelay);
   }
-  highScoreText.style.display = "block";
+  handleKeyPress(event) {
+    if (
+      (!this.gameStarted && event.code === "Space") ||
+      (!this.gameStarted && event.key === " ")
+    ) {
+      this.startGame();
+    } else {
+      switch (event.key) {
+        case "ArrowUp":
+          this.direction = "up";
+          break;
+        case "ArrowDown":
+          this.direction = "down";
+          break;
+        case "ArrowRight":
+          this.direction = "right";
+          break;
+        case "ArrowLeft":
+          this.direction = "left";
+          break;
+      }
+    }
+  }
+  eventListeners() {
+    document.addEventListener("keydown", this.handleKeyPress.bind(this));
+  }
+  increaseSpeed() {
+    if (this.gameSpeedDelay > 150) {
+      this.gameSpeedDelay -= 5;
+    } else if (this.gameSpeedDelay > 100) {
+      this.gameSpeedDelay -= 4;
+    } else if (this.gameSpeedDelay > 50) {
+      this.gameSpeedDelay -= 2;
+    } else if (this.gameSpeedDelay > 25) {
+      this.gameSpeedDelay -= 1;
+    }
+  }
+  checkCillision() {
+    const head = this.snake[0];
+    if (head.x < 1 || head.x > 40 || head.y < 1 || head.y > 20) {
+      this.ouchSound.play();
+      this.ouchSound.volume = 0.4;
+      this.resetGame();
+    }
+    for (let i = 1; i < this.snake.length; i++) {
+      if (head.x === this.snake[i].x && head.y === this.snake[i].y) {
+        this.ouchSound.play();
+        this.resetGame();
+      }
+    }
+  }
+  resetGame() {
+    this.introSound.pause();
+    this.gameSound.pause();
+    this.endSound.play();
+    this.endSound.volume = 0.5;
+    this.updateHighScore();
+    this.stopGame();
+    this.snake = [{ x: 20, y: 10 }];
+    this.food = this.generateFood();
+    this.direction = "right";
+    this.gameSpeedDelay = 200;
+    this.updateScore();
+    this.instructions.style.display = "none";
+    this.restart.style.display = "block";
+    this.logo.style.display = "none";
+    this.restartLogo.style.display = "block";
+    this.title.style.display = "none";
+  }
+  updateScore() {
+    const currentScore = this.snake.length - 1;
+    this.score.textContent = currentScore.toString();
+  }
+  stopGame() {
+    clearInterval(this.gameInterval);
+    this.gameStarted = false;
+    this.title.style.display = "block";
+    this.instructions.style.display = "block";
+    this.logo.style.display = "block";
+  }
+  updateHighScore() {
+    const currentScore = this.snake.length - 1;
+    if (currentScore > this.highscore) {
+      this.highscore = currentScore;
+      this.highScoreText.textContent = this.highscore.toString();
+    }
+    this.highScoreText.style.display = "block";
+  }
 }
+const anaconda = new Anaconda();
