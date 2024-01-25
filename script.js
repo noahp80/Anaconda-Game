@@ -13,6 +13,7 @@ const endSound = document.getElementById("endSound");
 const introSound = document.getElementById("introSound");
 const gameSound = document.getElementById("gameSound");
 
+
 let snake = [{ x: 20, y: 10 }];
 let food = generateFood();
 let highscore = 0;
@@ -23,14 +24,12 @@ let gameStarted = false;
 
 restartLogo.style.display = "none";
 
-
 function draw() {
   grid.innerHTML = "";
   drawSnake();
   drawFood();
   updateScore();
 }
-
 function drawSnake() {
   snake.forEach((segment) => {
     const snakeElement = createGameElement("div", "snake");
@@ -52,11 +51,13 @@ function drawFood() {
   setPosition(foodElement, food);
   grid.appendChild(foodElement);
 }
+
 function generateFood() {
   const x = Math.floor(Math.random() * 40) + 1;
   const y = Math.floor(Math.random() * 20) + 1;
   return { x, y };
 }
+
 function move() {
   const head = { ...snake[0] };
 
@@ -77,6 +78,7 @@ function move() {
   snake.unshift(head);
   if (head.x === food.x && head.y === food.y) {
     eatSound.play();
+    eatSound.volume = 0.4;
     food = generateFood();
     increaseSpeed;
     clearInterval(gameInterval);
@@ -91,7 +93,9 @@ function move() {
 }
 
 function startGame() {
+  introSound.pause();
   gameSound.play();
+  gameSound.volume = 0.1;
   endSound.pause();
   gameStarted = true;
   instructions.style.display = "none";
@@ -145,18 +149,22 @@ function increaseSpeed() {
 function checkCillision() {
   const head = snake[0];
   if (head.x < 1 || head.x > 40 || head.y < 1 || head.y > 20) {
+    ouchSound.play();
+    ouchSound.volume = 0.4;
     resetGame();
   }
   for (let i = 1; i < snake.length; i++) {
     if (head.x === snake[i].x && head.y === snake[i].y) {
+      ouchSound.play();
       resetGame();
     }
   }
 }
 function resetGame() {
+  introSound.pause();
   gameSound.pause();
-  ouchSound.play();
   endSound.play();
+  endSound.volume = 0.5;
   updateHighScore();
   stopGame();
   snake = [{ x: 20, y: 10 }];
@@ -180,7 +188,6 @@ function stopGame() {
   title.style.display = "block";
   instructions.style.display = "block";
   logo.style.display = "block";
-
 }
 function updateHighScore() {
   const currentScore = snake.length - 1;
